@@ -1,10 +1,12 @@
 package ru.javabegin.training.flight.ws;
 
 import java.lang.reflect.Field;
+import java.net.ProxySelector;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.ws.soap.Addressing;
@@ -20,20 +22,37 @@ import ru.javabegin.training.flight.spr.objects.Place;
 import ru.javabegin.training.flight.utils.GMTCalendar;
 import ru.javabegin.training.flight.ws.annotations.ExceptionMessage;
 import ru.javabegin.training.flight.ws.exceptions.ArgumentException;
+import ru.javabegin.training.flight.ws.proxy.CustomProxySelector;
 
 //@MTOM
 @WebService(endpointInterface = "ru.javabegin.training.flight.interfaces.sei.FlightSEI")
 //@BindingType(value = SOAPBinding.SOAP12HTTP_MTOM_BINDING)
-//@HandlerChain(file = "FlightWS_handler.xml")
+@HandlerChain(file = "FlightWS_handler.xml")
 @Addressing
 public class FlightWS implements FlightSEI {
+
+    public FlightWS() {
+         ProxySelector.setDefault(new CustomProxySelector());
+    }
+    
+    
 
     private SearchImpl searchImpl = new SearchImpl();
     private BuyImpl buyImpl = new BuyImpl();
     private CheckImpl checkImpl = new CheckImpl();
+    
+    private void imitateLoading(){
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(FlightWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     public ArrayList<Flight> searchFlight(Long date, City cityFrom, City cityTo) throws ArgumentException {
+        
+        imitateLoading();
 
         if (date == null || date <= 0) {
             throw new ArgumentException("Дата вылета не заполнена");

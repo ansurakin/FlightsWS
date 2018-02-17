@@ -21,21 +21,7 @@ public class TestLogicalHandler implements LogicalHandler<LogicalMessageContext>
         LogicalMessage msg = messageContext.getMessage();
 
         boolean outMessage = (Boolean) messageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
-        
-        
-        
-        if (outMessage) {
 
-            Object obj = msg.getPayload();
-            if (obj instanceof DOMSource) {
-                DOMSource source = (DOMSource) obj;
-//            System.out.println(source.getNode().getNodeName());
-
-
-
-            }
-
-        }
 
 
 
