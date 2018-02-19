@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://javabegin.ru/training/ws" targetNamespace="http://javabegin.ru/training/ws" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ArgumentException" type="tns:ArgumentException" />
+  <xs:element name="buyTicket" type="tns:buyTicket" />
+  <xs:element name="buyTicketResponse" type="tns:buyTicketResponse" />
+  <xs:element name="checkReservationByCode" type="tns:checkReservationByCode" />
+  <xs:element name="checkReservationByCodeResponse" type="tns:checkReservationByCodeResponse" />
+  <xs:element name="getAllCities" type="tns:getAllCities" />
+  <xs:element name="getAllCitiesResponse" type="tns:getAllCitiesResponse" />
+  <xs:element name="searchFlight" type="tns:searchFlight" />
+  <xs:element name="searchFlightResponse" type="tns:searchFlightResponse" />
+  <xs:complexType name="checkReservationByCode">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="checkReservationByCodeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:reservation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="reservation">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="flight" type="tns:flight" />
+      <xs:element minOccurs="0" name="passenger" type="tns:passenger" />
+      <xs:element minOccurs="0" name="place" type="tns:place" />
+      <xs:element minOccurs="0" name="addInfo" type="xs:string" />
+      <xs:element minOccurs="0" name="reserveDateTime" type="xs:dateTime" />
+      <xs:element name="code" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="flight">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="duration" type="xs:string" />
+      <xs:element minOccurs="0" name="existFreePlaces" type="xs:boolean" />
+      <xs:element minOccurs="0" name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+      <xs:element name="dateDepart" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="dateCome" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="aircraft" type="tns:aircraft" />
+      <xs:element name="cityFrom" type="tns:city" />
+      <xs:element name="cityTo" type="tns:city" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aircraft">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="company" type="tns:company" />
+      <xs:element minOccurs="0" name="desc" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="freePlaceList" nillable="true" type="tns:place" />
+      <xs:element name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="placeList" nillable="true" type="tns:place" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="company">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="desc" type="xs:string" />
+      <xs:element name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="place">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" />
+      <xs:element name="seatLetter" type="xs:string" />
+      <xs:element name="seatNumber" type="xs:int" />
+      <xs:element name="flightClass" type="tns:flightClass" />
+      <xs:element name="busy" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="flightClass">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="desc" type="xs:string" />
+      <xs:element name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="city">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+      <xs:element minOccurs="0" name="desc" type="xs:string" />
+      <xs:element minOccurs="0" name="country" type="tns:country" />
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="country">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="code" type="xs:string" />
+      <xs:element minOccurs="0" name="desc" type="xs:string" />
+      <xs:element minOccurs="0" name="flag" type="xs:base64Binary" />
+      <xs:element name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="passenger">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" />
+      <xs:element name="givenName" type="xs:string" />
+      <xs:element minOccurs="0" name="middleName" type="xs:string" />
+      <xs:element name="familyName" type="xs:string" />
+      <xs:element name="documentNumber" type="xs:string" />
+      <xs:element minOccurs="0" name="email" type="xs:string" />
+      <xs:element minOccurs="0" name="phone" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArgumentException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="exceptionInfo" type="tns:exceptionInfo" />
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="exceptionInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="trace" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getAllCities">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getAllCitiesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:city" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buyTicket">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="flightId" type="xs:long" />
+      <xs:element minOccurs="0" name="placeId" type="xs:long" />
+      <xs:element minOccurs="0" name="passenger" type="tns:passenger" />
+      <xs:element minOccurs="0" name="addInfo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buyTicketResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="searchFlight">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="date" type="xs:long" />
+      <xs:element minOccurs="0" name="cityFrom" type="tns:city" />
+      <xs:element minOccurs="0" name="cityTo" type="tns:city" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="searchFlightResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:flight" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

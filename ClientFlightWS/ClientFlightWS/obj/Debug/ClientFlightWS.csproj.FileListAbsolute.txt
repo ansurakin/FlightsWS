@@ -1,0 +1,11 @@
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\bin\Debug\ClientFlightWS.exe.config
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\bin\Debug\ClientFlightWS.exe
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\bin\Debug\ClientFlightWS.pdb
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\obj\Debug\ClientFlightWS.csprojResolveAssemblyReference.cache
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\obj\Debug\ClientFlightWS.frmMain.resources
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\obj\Debug\ClientFlightWS.Properties.Resources.resources
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\obj\Debug\ClientFlightWS.csproj.GenerateResource.Cache
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\obj\Debug\ClientFlightWS.exe
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\obj\Debug\ClientFlightWS.pdb
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\obj\Debug\ClientFlightWS.forms.BuyForm.resources
+C:\work\projects\vs\ClientFlightWS\ClientFlightWS\obj\Debug\ClientFlightWS.forms.checkForm.resources
