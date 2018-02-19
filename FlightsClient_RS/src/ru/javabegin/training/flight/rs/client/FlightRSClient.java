@@ -18,8 +18,10 @@ import ru.javabegin.training.flight.rs.objects.City;
 import ru.javabegin.training.flight.rs.objects.CityList;
 import ru.javabegin.training.flight.rs.objects.Flight;
 import ru.javabegin.training.flight.rs.objects.FlightList;
-import ru.javabegin.training.flight.rs.objects.SearchFlightParam;
-
+import ru.javabegin.training.flight.rs.objects.Passenger;
+import ru.javabegin.training.flight.rs.objects.Reservation;
+import ru.javabegin.training.flight.rs.objects.ReservationResult;
+import ru.javabegin.training.flight.rs.objects.TicketParam;
 
 /**
  * Jersey REST client generated for REST resource:FlightRS [flight]<br>
@@ -34,22 +36,20 @@ import ru.javabegin.training.flight.rs.objects.SearchFlightParam;
  * @author Tim
  */
 public class FlightRSClient {
+
     private WebResource webResource;
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/Flights_RS/rest";
-
-    
     private static FlightRSClient instance;
-    
-    public static FlightRSClient getInstance(){
-        if (instance == null){
+
+    public static FlightRSClient getInstance() {
+        if (instance == null) {
             instance = new FlightRSClient();
         }
-        
+
         return instance;
     }
-    
-    
+
     private FlightRSClient() {
         com.sun.jersey.api.client.config.ClientConfig config = new com.sun.jersey.api.client.config.DefaultClientConfig();
         config.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
@@ -61,9 +61,9 @@ public class FlightRSClient {
         WebResource resource = webResource;
         resource = resource.path("allcities");
         CityList cityListWrapper = resource.accept(MediaType.APPLICATION_JSON).get(CityList.class);
-        
+
         ArrayList<ExtCity> cityList = new ArrayList<>();
-          try {
+        try {
             for (City city : cityListWrapper.getCityList()) {
                 ExtCity extCity = new ExtCity();
                 extCity.setCode(city.getCode());
@@ -83,26 +83,40 @@ public class FlightRSClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return cityList;
     }
-    
-    
-    public List<Flight> searchFlight(Long date, City cityFrom, City cityTo) throws UniformInterfaceException {
+
+    public List<Flight> searchFlight(Long date, Long cityFromId, Long cityToId) throws UniformInterfaceException {
         WebResource resource = webResource;
-        resource = resource.path("searchFlight");
-        
-        SearchFlightParam searchFlightParam = new SearchFlightParam();
-        searchFlightParam.setDate(date);
-        searchFlightParam.setCityFrom(cityFrom);
-        searchFlightParam.setCityTo(cityTo);        
-        
-        FlightList flightListWrapper = resource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(FlightList.class, searchFlightParam);
+        resource = resource.path("searchFlight").path(date.toString()).path(cityFromId.toString()).path(cityToId.toString());
+
+        FlightList flightListWrapper = resource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(FlightList.class);
         return flightListWrapper.getFlightList();
+    }
+
+    public boolean buyTicket(Long flightId, Long placeId, Passenger passenger, String addInfo) {
+        WebResource resource = webResource;
+        resource = resource.path("buyTicket");
+
+        TicketParam ticketParam = new TicketParam();
+        ticketParam.setFlightId(flightId);
+        ticketParam.setPlaceId(placeId);
+        ticketParam.setPassenger(passenger);
+        ticketParam.setAddInfo(addInfo);
+
+        boolean result = resource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Boolean.class, ticketParam);
+        return result;
+    }
+
+    public Reservation checkReservationByCode(String code) {
+        WebResource resource = webResource;
+        resource = resource.path("checkReservation").path(code);
+        ReservationResult reservationResult = resource.type(MediaType.APPLICATION_JSON).get(ReservationResult.class);
+        return reservationResult.getReservation();
     }
 
     public void close() {
         client.destroy();
     }
-    
 }

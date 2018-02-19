@@ -13,18 +13,14 @@ import java.util.TimeZone;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
-//import ru.javabegin.training.flight.client.FlightWSClient;
 import ru.javabegin.training.flight.enums.ListenerType;
 import ru.javabegin.training.flight.listeners.Registrator;
 import ru.javabegin.training.flight.models.BoxModel;
 import ru.javabegin.training.flight.models.FlightModel;
-//import ru.javabegin.training.flight.models.FlightModel;
 import ru.javabegin.training.flight.object.ExtCity;
 import ru.javabegin.training.flight.rs.client.FlightRSClient;
 import ru.javabegin.training.flight.rs.objects.City;
 import ru.javabegin.training.flight.rs.objects.Flight;
-//import ru.javabegin.training.flight.ws.ArgumentException_Exception;
-//import ru.javabegin.training.flight.ws.Flight;
 import ru.javabegin.training.flight.ws.interfaces.WSResultListener;
 import ru.javabegin.training.flight.ws.proxy.CustomProxySelector;
 
@@ -267,19 +263,19 @@ public class FrameMain extends javax.swing.JFrame implements WSResultListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
-//        if (tableFlights.getSelectedRow() >= 0) {
-//            Flight flight = flightList.get(tableFlights.getSelectedRow());
-//
-//            DialogBuy dialogBuy = new DialogBuy(this, true);
-//            dialogBuy.setFlight(flight);
-//            dialogBuy.setVisible(true);
-//            searchFlights();
-//        }
+        if (tableFlights.getSelectedRow() >= 0) {
+            Flight flight = flightList.get(tableFlights.getSelectedRow());
+
+            DialogBuy dialogBuy = new DialogBuy(this, true);
+            dialogBuy.setFlight(flight);
+            dialogBuy.setVisible(true);
+            searchFlights();
+        }
     }//GEN-LAST:event_btnBuyActionPerformed
 
     private void btnCheckTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckTicketActionPerformed
-//        DialogCheck dialogCheck = new DialogCheck(this, true);
-//        dialogCheck.setVisible(true);
+        DialogCheck dialogCheck = new DialogCheck(this, true);
+        dialogCheck.setVisible(true);
     }//GEN-LAST:event_btnCheckTicketActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -326,7 +322,8 @@ public class FrameMain extends javax.swing.JFrame implements WSResultListener {
         }
 //        try {
 //        showBusy(true);
-        updateFlights(searchClient.searchFlight(dateFrom, cityFrom, cityTo));
+        flightList = searchClient.searchFlight(dateFrom, cityFrom.getId(), cityTo.getId());
+        updateFlights(flightList);
 //        showBusy(false);
         
         
@@ -353,10 +350,8 @@ public class FrameMain extends javax.swing.JFrame implements WSResultListener {
         comboCityTo.setModel(new BoxModel<ExtCity>(list));
     }
 
-//    private void updateFlights(List<Flight> list) {
-//        tableFlights.setModel(new FlightModel(list));
-//        ((AbstractTableModel) tableFlights.getModel()).fireTableDataChanged();        
-//    }
+
+    
     @Override
     public void notify(Object obj, ListenerType listenerType) {
 //        switch (listenerType) {

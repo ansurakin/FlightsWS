@@ -1,13 +1,11 @@
 package ru.javabegin.training.flight.ws.handlers;
 
 import java.util.Set;
-
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPHeader;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
